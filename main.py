@@ -9,7 +9,7 @@ from dokusan import generators
 #I have chosen an object oriented approach as it allows both the grid and the squares to house their own attributes and methods
 #This makes the project easier to interpret from an outside point of view as the methods within each are used
 #To draw the grid and squares, along with solving the board
-  
+
 class Grid:
 
 
@@ -249,8 +249,8 @@ class Square:
     pygame.draw.rect(win, (255, 255, 255), (x, y, gap, gap), 0)
 
     text = fnt.render(str(self.value), 1, (0, 0, 0))
-    win.blit(text, (x + (gap / 2 - text.get_width() / 2), y +
-                    (gap / 2 - text.get_height() / 2)))
+    if self.value != 0:
+      win.blit(text, (x + (gap / 2 - text.get_width() / 2), y + (gap / 2 - text.get_height() / 2)))
     if g:
       #turns valid submissions green when autosolved
       pygame.draw.rect(win, (0, 255, 0), (x, y, gap, gap), 2)
@@ -426,9 +426,10 @@ def main():
           if board.squares[i][j].temp != 0:
             if not board.place(board.squares[i][j].temp):
               key = None
+        if event.key == pygame.K_RCTRL or event.key == pygame.K_LCTRL:
+          main()
 
-
-          
+        
 #gets position of mouse when clicked to determine the square clicked on
       if event.type == pygame.MOUSEBUTTONDOWN:
         pos = pygame.mouse.get_pos()
